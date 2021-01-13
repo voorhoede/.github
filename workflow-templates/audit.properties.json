@@ -1,0 +1,8 @@
+{
+  "name": "Code audit",
+  "description": "De Voorhoede Node.js audit workflow template.",
+  "iconName": "audit-icon",
+  "categories": [
+    "JavaScript"
+  ]
+}
