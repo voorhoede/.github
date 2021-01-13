@@ -4,5 +4,8 @@
   "iconName": "audit-icon",
   "categories": [
     "JavaScript"
+  ],
+  "filePatterns": [
+    "package.json"
   ]
 }
