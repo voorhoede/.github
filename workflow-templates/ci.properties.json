@@ -1,0 +1,11 @@
+{
+  "name": "Node.js CI",
+  "description": "De Voorhoede Node.js continuous integration workflow template.",
+  "iconName": "ci-icon",
+  "categories": [
+    "JavaScript"
+  ],
+  "filePatterns": [
+    "package.json"
+  ]
+}
