@@ -1,0 +1,11 @@
+{
+  "name": "Vercel Deploy",
+  "description": "De Voorhoede Vercel deployment workflow template.",
+  "iconName": "vercel-deploy-icon",
+  "categories": [
+    "JavaScript"
+  ],
+  "filePatterns": [
+    "package.json"
+  ]
+}
