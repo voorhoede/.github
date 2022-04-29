@@ -6,19 +6,19 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
 
       # Choose global or local node modules caching
       # https://www.voorhoede.nl/en/blog/super-fast-npm-install-on-github-actions/
 
       # - name: Use dependencies cache
       #   id: cache
-      #   uses: actions/cache@v2
+      #   uses: actions/cache@v3
       #   with:
       #     path: ./node_modules
       #     key: modules-${{ hashFiles('package-lock.json') }}
@@ -28,7 +28,7 @@ jobs:
       #   run: npm ci --ignore-scripts
 
       - name: Use dependencies cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
