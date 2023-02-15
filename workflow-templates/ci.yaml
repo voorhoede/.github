@@ -3,8 +3,9 @@ name: Node.js CI
 on: pull_request
 
 jobs:
-  lint:
+  ci:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
 
