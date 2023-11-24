@@ -13,8 +13,8 @@ Save entry as `[YYYY-MM-DD]-[name-slug]` (for example `2022-02-15-deploy-pr-only
 # [Title]
 [Brief summary of decision]
 
--   Alternatives Considered: [Alternatives]
--   Decision Made By: [Human]
+- Alternatives Considered: [Alternatives]
+- Decision Made By: [Human]
 
 ## Decision
 [Explain the decision in more detail]
