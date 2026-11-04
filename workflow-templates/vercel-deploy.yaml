@@ -4,24 +4,37 @@ on:
   push:
     branches: [$default-branch]
   pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
-  deploy:
+  deploy-vercel:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    permissions: 
-      contents: read 
-      pull-requests: write 
-      deployments: write
+    env:
+      VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+      VERCEL_TARGET: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
+      CDN_URL: my-website-${{ github.sha }}.vercel.app
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v6
 
-      - name: Deploy to Vercel Action
-        uses: BetaHuhn/deploy-to-vercel-action@v1
+      - uses: actions/setup-node@v6
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-          PR_LABELS: false
+          node-version-file: ".node-version"
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund --omit dev
+
+      - name: Vercel pull environment variables
+        run: npm exec --no -- vercel env pull .env --environment ${{ env.VERCEL_TARGET }} --token ${{ secrets.VERCEL_AUTH_TOKEN }}
+
+      - name: Build
+        run: npm run build
+
+      - name: Vercel deploy
+        id: deploy
+        run: |
+          url=$(npm exec --no -- vercel deploy --prebuilt --target ${{ env.VERCEL_TARGET }} --token ${{ secrets.VERCEL_AUTH_TOKEN }})
+          echo "url=$url" >> $GITHUB_OUTPUT
+
+      - name: Set alias
+        run: npm exec --no -- vercel alias set ${{ steps.deploy.outputs.url }} $CDN_URL --token ${{ secrets.VERCEL_AUTH_TOKEN }}
