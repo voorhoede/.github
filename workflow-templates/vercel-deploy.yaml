@@ -15,7 +15,7 @@ jobs:
       VERCEL_TARGET: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
       CDN_URL: my-website-${{ github.sha }}.vercel.app
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v6
         with:
