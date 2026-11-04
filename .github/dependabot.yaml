@@ -4,3 +4,5 @@ updates:
     directory: "/workflow-templates"
     schedule:
       interval: "quarterly"
+    commit-message:
+      prefix: ""
